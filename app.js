@@ -8,7 +8,6 @@ document.getElementById("video");
 
 try{
 
-```
 const stream =
   await navigator.mediaDevices
   .getUserMedia({
@@ -23,16 +22,14 @@ const stream =
   });
 
 video.srcObject = stream;
-```
 
 }catch(err){
 
-```
 document
   .getElementById("status")
   .innerHTML =
   err.toString();
-```
+
 
 }
 
@@ -111,7 +108,6 @@ function detectPaper(canvas){
 
 try{
 
-```
 let src =
   cv.imread(canvas);
 
@@ -247,18 +243,15 @@ src.delete();
 gray.delete();
 blur.delete();
 edge.delete();
-```
 
 }catch(err){
 
-```
 console.error(err);
 
 document
   .getElementById("status")
   .innerHTML =
   err.toString();
-```
 
 }
 }
@@ -267,13 +260,11 @@ async function sendToAI(){
 
 if(!correctedImage){
 
-```
 alert(
   "先に撮影してください"
 );
 
 return;
-```
 
 }
 
@@ -288,7 +279,6 @@ await fetch(
 {
 method:"POST",
 
-```
     body:JSON.stringify({
 
       name:
@@ -304,7 +294,6 @@ method:"POST",
     })
   }
 );
-```
 
 const result =
 await response.json();

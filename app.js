@@ -265,7 +265,6 @@ alert(
 );
 
 return;
-
 }
 
 document

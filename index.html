@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>AI小論文添削システム</title>
+
+<script async src="https://docs.opencv.org/4.8.0/opencv.js"></script>
+
+<style>
+
+body{
+  font-family:sans-serif;
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+  text-align:center;
+}
+
+video,
+img{
+  width:100%;
+  max-width:800px;
+  border:2px solid #ccc;
+  border-radius:10px;
+}
+
+button{
+  font-size:18px;
+  padding:12px 20px;
+  margin:10px;
+}
+
+#status{
+  margin:15px;
+  font-weight:bold;
+}
+
+#result{
+  white-space:pre-wrap;
+  text-align:left;
+  border:1px solid #ccc;
+  padding:15px;
+  min-height:150px;
+}
+
+canvas{
+  display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>AI小論文添削システム</h1>
+
+<input
+type="text"
+id="studentName"
+placeholder="氏名">
+
+<br><br>
+
+<video
+id="video"
+autoplay
+playsinline> </video>
+
+<canvas id="captureCanvas"></canvas>
+
+<br>
+
+<button onclick="captureEssay()">
+📷 撮影
+</button>
+
+<button onclick="sendToAI()">
+🤖 AI添削
+</button>
+
+<div id="status">
+OpenCV読込待機中...
+</div>
+
+<h3>補正画像</h3>
+
+<img id="preview">
+
+<h3>添削結果</h3>
+
+<div id="result"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

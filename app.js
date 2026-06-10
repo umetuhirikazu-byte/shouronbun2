@@ -41,49 +41,70 @@ waitForOpenCV();
 
 function waitForOpenCV(){
 
-if(typeof cv === "undefined"){
+  console.log("checking cv");
 
-```
-setTimeout(
-  waitForOpenCV,
-  500
-);
+  if(typeof cv === "undefined"){
 
-return;
-```
+    document
+      .getElementById("status")
+      .innerHTML =
+      "OpenCV読込中...";
 
-}
+    setTimeout(
+      waitForOpenCV,
+      500
+    );
 
-document
-.getElementById("status")
-.innerHTML =
-"OpenCV準備完了";
+    return;
+  }
+
+  document
+    .getElementById("status")
+    .innerHTML =
+    "OpenCV準備完了";
+
+  console.log("OpenCV OK");
 }
 
 function captureEssay(){
 
-const canvas =
-document
-.getElementById(
-"captureCanvas"
-);
+  const canvas =
+    document.getElementById(
+      "captureCanvas"
+    );
 
-canvas.width =
-video.videoWidth;
+  canvas.width =
+    video.videoWidth;
 
-canvas.height =
-video.videoHeight;
+  canvas.height =
+    video.videoHeight;
 
-const ctx =
-canvas.getContext("2d");
+  const ctx =
+    canvas.getContext("2d");
 
-ctx.drawImage(
-video,
-0,
-0
-);
+  ctx.drawImage(
+    video,
+    0,
+    0
+  );
 
-detectPaper(canvas);
+  const img =
+    canvas.toDataURL(
+      "image/jpeg",
+      0.9
+    );
+
+  correctedImage = img;
+
+  document
+    .getElementById("preview")
+    .src =
+    img;
+
+  document
+    .getElementById("status")
+    .innerHTML =
+    "撮影成功";
 }
 
 function detectPaper(canvas){

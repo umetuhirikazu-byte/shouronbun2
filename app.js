@@ -258,96 +258,36 @@ document
 
 async function sendToAI(){
 
-  if(!correctedImage){
+if(!correctedImage){
+  alert("先に撮影してください");
+  return;
+}
 
-    alert("先に撮影してください");
-    return;
+document.getElementById("status").innerHTML =
+"AI添削中...";
 
-  }
+const response = await fetch(
+"https://essay-ai.umetuhirikazu.workers.dev/",
+{
+  method:"POST",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body:JSON.stringify({
+    name:
+      document.getElementById("studentName").value,
+    image:
+      correctedImage.split(",")[1]
+  })
+}
+);
 
-  document.getElementById("status").innerHTML =
-    "AI添削中...";
+const result =
+await response.json();
 
-  const apiKey = "AIzaSyCiy7kiTWcEstsbET97vhrvmT0oqwdywKU";
+document.getElementById("result").innerText =
+result.feedback;
 
-  const prompt = `
-あなたは高校国語科教員です。
-
-画像の手書き小論文をOCRで読み取り、
-添削してください。
-
-【OCR結果】
-
-【総合評価】
-
-【得点】
-文章構成：
-論理性：
-具体性：
-表現力：
-誤字脱字：
-合計：
-
-【良い点】
-
-【改善点】
-
-【改善例】
-
-【先生からのコメント】
-`;
-
-  const payload = {
-
-    contents:[
-      {
-        parts:[
-          {
-            text: prompt
-          },
-          {
-            inline_data:{
-              mime_type:"image/jpeg",
-              data: correctedImage.split(",")[1]
-            }
-          }
-        ]
-      }
-    ]
-
-  };
-
-  const response =
-    await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(payload)
-      }
-    );
-
-
-console.log(response.status);
-
-const text =
-await response.text();
-
-console.log(text);
-
-  
-  const result =
-    await response.json();
-
-  const feedback =
-    result.candidates[0]
-    .content.parts[0].text;
-
-  document.getElementById("result")
-    .innerText = feedback;
-
-  document.getElementById("status")
-    .innerHTML = "添削完了";
+document.getElementById("status").innerHTML =
+"添削完了";
 }

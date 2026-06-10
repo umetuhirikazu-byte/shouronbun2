@@ -271,7 +271,7 @@ document
 .getElementById("status")
 .innerHTML =
 "AI添削中...";
-
+  
 const response =
 await fetch(
 "https://script.google.com/a/macros/yamagataps.jp/s/AKfycbyuFc2ftg9uLyCVavFY6zBpEpRlGkQYBM3-NUq2I0752pEDaJUvxLqxNiW7DRx2GBlO/exec",
